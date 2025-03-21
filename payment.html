@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scorpion Movies</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" sizes="32x32">
+	<link rel="apple-touch-icon" href="img/favicon.png">
+
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet"> 
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .sign__input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .sign__btn {
+            width: 100%;
+            background-color: #ff4757;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .sign__btn:hover {
+            background-color: #ff6b81;
+        }
+
+        label {
+            color: white;
+            font-weight: bold;
+        }
+
+        #paymentForm {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="sign section--bg" data-bg="img/section/section.jpg">
+        <div class="container">
+            <h2>Movie Ticket Booking</h2>
+            <div class="sign__content">
+                <form action="#" class="sign__form">
+                    <a href="index.html" class="sign__logo">
+                        <img src="img/images-removebg-preview.png" alt="">
+                    </a>
+
+                    <!-- Grid Layout -->
+                    <div class="grid-container">
+                        <!-- Left Column -->
+                        <div>
+                            <label>Full Name:</label>
+                            <input type="text" class="sign__input" placeholder="Enter your name" required>
+
+                         <label>Age:</label>
+                            <input type="text" class="sign__input" placeholder="Enter Your Age" required>
+
+                            <label>ID Card Number:</label>
+                            <input type="text" class="sign__input" placeholder="Enter ID number" required>
+
+                            <label>Email:</label>
+                            <input type="email" class="sign__input" placeholder="Enter your email" required>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div>
+                            <label>Select Movie:</label>
+                            <select id="movie" class="sign__input" onchange="calculateTotal()">
+                                <option value="8.5">I Dream in Another Language ($8.5)</option>
+                                <option value="7.0">Benched ($7.0)</option>
+                                <option value="6.5">Whitney ($6.5)</option>
+                                <option value="7.5">Blindspotting ($7.5)</option>
+                                <option value="8.5">Avatar The Way of Water ($10.5)</option>
+								<option value="8.5">Jaws ($12.5)</option>
+								<option value="8.5">John Wick ($20.5)</option>
+								<option value="8.5">Deadpool (Full Movie Series) ($35)</option>
+                            </select>
+
+                            <label>Number of Tickets:</label>
+                            <input type="number" id="quantity" class="sign__input" value="1" min="1" onchange="calculateTotal()">
+
+                            <label>Select Hall:</label>
+                            <select id="hall" class="sign__input">
+                                <option value="A">Normal Hall</option>
+                                <option value="B">A/C Premium Hall</option>
+                                <option value="C">Lux Hall</option>
+                            </select> 
+
+                            <label>Select Date and Time:</label>
+                            <select id="hall" class="sign__input">
+                                <option value="A">Friday 8.00 P.M</option>
+                                <option value="B">Saturday 6.00 P.M</option>
+                                <option value="C">Sunday 5.00 P.M</option>
+                            </select> <br><br>
+                            <h3>Total Price: $<span id="totalPrice">8.5</span></h3>
+                        </div>
+
+                        <!-- Full-width Row -->
+                        <div class="full-width">
+                            <input id="confirm" type="checkbox" required>
+                            <label for="confirm">All Movies are showed on these days and you can book your tickets by filling out above information.</label>
+                        </div>
+
+                        <!-- Full-width Payment Button -->
+                        <div class="full-width">
+                            <button class="sign__btn" type="button" onclick="showPaymentForm()">Proceed to Payment</button>
+                        </div>
+
+                        <!-- Full-width Payment Form (Hidden Initially) -->
+                        <div id="paymentForm" class="full-width">
+							<center><h3>Payment Details</h3></center>
+
+                            <label>Card Number:</label>
+                            <input type="text" id="cardNumber" class="sign__input" placeholder="Enter card number" required>
+
+                            <label>Expiry Date:</label>
+                            <input type="text" id="expiry" class="sign__input" placeholder="MM/YY" required>
+
+                            <label>CVV:</label>
+                            <input type="text" id="cvv" class="sign__input" placeholder="CVV" required>
+
+                            <button class="sign__btn" type="button" onclick="alertMsg()">Pay Now</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function calculateTotal() {
+            let moviePrice = parseFloat(document.getElementById("movie").value);
+            let quantity = parseInt(document.getElementById("quantity").value);
+            let total = moviePrice * quantity;
+            document.getElementById("totalPrice").textContent = total.toFixed(2);
+        }
+
+        function showPaymentForm() {
+            document.getElementById("paymentForm").style.display = "block";
+        }
+		
+		
+				function alertMsg() {
+				Swal.fire(
+				'Transaction Success',
+				'Tickets were booked',
+				'success'
+			)
+		}
+						
+    </script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</body>
+</html>
